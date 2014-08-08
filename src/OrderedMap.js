@@ -94,8 +94,8 @@ class OrderedMap extends Map {
     if (index == null) {
       return this;
     }
-    var newMap = this._map.delete(k);
-    var newVector = this._vector.delete(index);
+    var newMap = this._map['delete'](k);
+    var newVector = this._vector['delete'](index);
 
     if (newMap.length === 0) {
       return this.clear();

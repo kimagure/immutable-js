@@ -74,11 +74,11 @@ class Map extends Sequence {
     }
     if (this.__ownerID) {
       var didRemoveLeaf = BoolRef();
-      this._root = this._root.delete(this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
+      this._root = this._root['delete'](this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
       didRemoveLeaf.value && this.length--;
       return this;
     }
-    var newRoot = this._root.delete(this.__ownerID, 0, hashValue(k), k);
+    var newRoot = this._root['delete'](this.__ownerID, 0, hashValue(k), k);
     return !newRoot ? Map.empty() : newRoot === this._root ? this : Map._make(this.length - 1, newRoot);
   }
 
@@ -254,7 +254,7 @@ class BitmapIndexedNode {
     }
     if (keyOrNull == null) {
       var node = this.values[idx];
-      var newNode = node.delete(ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
+      var newNode = node['delete'](ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
       if (newNode === node) {
         return this;
       }

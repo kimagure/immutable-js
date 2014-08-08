@@ -88,7 +88,7 @@ class Record extends Sequence {
     if (k == null || !this.has(k)) {
       return this;
     }
-    var newMap = this._map.delete(k);
+    var newMap = this._map['delete'](k);
     if (this.__ownerID || newMap === this._map) {
       return this;
     }

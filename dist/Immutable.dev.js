@@ -950,11 +950,11 @@ var $Map = Map;
     }
     if (this.__ownerID) {
       var didRemoveLeaf = BoolRef();
-      this._root = this._root.delete(this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
+      this._root = this._root['delete'](this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
       didRemoveLeaf.value && this.length--;
       return this;
     }
-    var newRoot = this._root.delete(this.__ownerID, 0, hashValue(k), k);
+    var newRoot = this._root['delete'](this.__ownerID, 0, hashValue(k), k);
     return !newRoot ? $Map.empty() : newRoot === this._root ? this : $Map._make(this.length - 1, newRoot);
   },
   update: function(k, updater) {
@@ -1108,7 +1108,7 @@ var $BitmapIndexedNode = BitmapIndexedNode;
     }
     if (keyOrNull == null) {
       var node = this.values[idx];
-      var newNode = node.delete(ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
+      var newNode = node['delete'](ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
       if (newNode === node) {
         return this;
       }
@@ -1879,7 +1879,7 @@ var $Set = Set;
     if (value == null || this._map == null) {
       return this;
     }
-    var newMap = this._map.delete(value);
+    var newMap = this._map['delete'](value);
     if (newMap.length === 0) {
       return this.clear();
     }
@@ -1929,7 +1929,7 @@ var $Set = Set;
         if (!seqs.every((function(seq) {
           return seq.contains(value);
         }))) {
-          set.delete(value);
+          set['delete'](value);
         }
       }));
     }));
@@ -1950,7 +1950,7 @@ var $Set = Set;
         if (seqs.some((function(seq) {
           return seq.contains(value);
         }))) {
-          set.delete(value);
+          set['delete'](value);
         }
       }));
     }));
@@ -2085,8 +2085,8 @@ var $OrderedMap = OrderedMap;
     if (index == null) {
       return this;
     }
-    var newMap = this._map.delete(k);
-    var newVector = this._vector.delete(index);
+    var newMap = this._map['delete'](k);
+    var newVector = this._vector['delete'](index);
     if (newMap.length === 0) {
       return this.clear();
     }
@@ -2201,7 +2201,7 @@ var $Record = Record;
     if (k == null || !this.has(k)) {
       return this;
     }
-    var newMap = this._map.delete(k);
+    var newMap = this._map['delete'](k);
     if (this.__ownerID || newMap === this._map) {
       return this;
     }
