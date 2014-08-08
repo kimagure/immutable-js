@@ -944,17 +944,17 @@ var $Map = Map;
     }
     return newRoot === this._root ? this : $Map._make(newLength, newRoot);
   },
-  delete: function(k) {
+  remove: function(k) {
     if (k == null || this._root == null) {
       return this;
     }
     if (this.__ownerID) {
       var didRemoveLeaf = BoolRef();
-      this._root = this._root.delete(this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
+      this._root = this._root.remove(this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
       didRemoveLeaf.value && this.length--;
       return this;
     }
-    var newRoot = this._root.delete(this.__ownerID, 0, hashValue(k), k);
+    var newRoot = this._root.remove(this.__ownerID, 0, hashValue(k), k);
     return !newRoot ? $Map.empty() : newRoot === this._root ? this : $Map._make(this.length - 1, newRoot);
   },
   update: function(k, updater) {
@@ -1098,7 +1098,7 @@ var $BitmapIndexedNode = BitmapIndexedNode;
     editable.values[idx] = newNode;
     return editable;
   },
-  delete: function(ownerID, shift, hash, key, didRemoveLeaf) {
+  remove: function(ownerID, shift, hash, key, didRemoveLeaf) {
     var editable;
     var idx = (hash >>> shift) & MASK;
     var bit = 1 << idx;
@@ -1108,7 +1108,7 @@ var $BitmapIndexedNode = BitmapIndexedNode;
     }
     if (keyOrNull == null) {
       var node = this.values[idx];
-      var newNode = node.delete(ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
+      var newNode = node.remove(ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
       if (newNode === node) {
         return this;
       }
@@ -1185,7 +1185,7 @@ var $HashCollisionNode = HashCollisionNode;
     }
     return editable;
   },
-  delete: function(ownerID, shift, hash, key, didRemoveLeaf) {
+  remove: function(ownerID, shift, hash, key, didRemoveLeaf) {
     var idx = this.keys.indexOf(key);
     if (idx === -1) {
       return this;
@@ -1368,7 +1368,7 @@ var $Vector = Vector;
     }
     return $Vector._make(this._origin, this._size, this._level, newRoot, this._tail);
   },
-  delete: function(index) {
+  remove: function(index) {
     if (!this.has(index)) {
       return this;
     }
@@ -1875,11 +1875,11 @@ var $Set = Set;
     }
     return newMap === this._map ? this : $Set._make(newMap);
   },
-  delete: function(value) {
+  remove: function(value) {
     if (value == null || this._map == null) {
       return this;
     }
-    var newMap = this._map.delete(value);
+    var newMap = this._map.remove(value);
     if (newMap.length === 0) {
       return this.clear();
     }
@@ -1929,7 +1929,7 @@ var $Set = Set;
         if (!seqs.every((function(seq) {
           return seq.contains(value);
         }))) {
-          set.delete(value);
+          set.remove(value);
         }
       }));
     }));
@@ -1950,7 +1950,7 @@ var $Set = Set;
         if (seqs.some((function(seq) {
           return seq.contains(value);
         }))) {
-          set.delete(value);
+          set.remove(value);
         }
       }));
     }));
@@ -2077,7 +2077,7 @@ var $OrderedMap = OrderedMap;
     }
     return newVector === this._vector ? this : $OrderedMap._make(newMap, newVector);
   },
-  delete: function(k) {
+  remove: function(k) {
     if (k == null || this._map == null) {
       return this;
     }
@@ -2085,8 +2085,8 @@ var $OrderedMap = OrderedMap;
     if (index == null) {
       return this;
     }
-    var newMap = this._map.delete(k);
-    var newVector = this._vector.delete(index);
+    var newMap = this._map.remove(k);
+    var newVector = this._vector.remove(index);
     if (newMap.length === 0) {
       return this.clear();
     }
@@ -2197,11 +2197,11 @@ var $Record = Record;
     }
     return this._make(newMap);
   },
-  delete: function(k) {
+  remove: function(k) {
     if (k == null || !this.has(k)) {
       return this;
     }
-    var newMap = this._map.delete(k);
+    var newMap = this._map.remove(k);
     if (this.__ownerID || newMap === this._map) {
       return this;
     }

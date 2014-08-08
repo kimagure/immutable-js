@@ -77,7 +77,7 @@ class Vector extends IndexedSequence {
 
   // @pragma Modification
 
-  // TODO: set and delete seem very similar.
+  // TODO: set and remove seem very similar.
 
   set(index, value) {
     var tailOffset = getTailOffset(this._size);
@@ -123,7 +123,7 @@ class Vector extends IndexedSequence {
     return Vector._make(this._origin, this._size, this._level, newRoot, this._tail);
   }
 
-  delete(index) {
+  remove(index) {
     // Out of bounds, no-op. Probably a more efficient way to do this...
     if (!this.has(index)) {
       return this;

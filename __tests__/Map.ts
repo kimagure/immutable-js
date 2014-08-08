@@ -79,12 +79,12 @@ describe('Map', () => {
     expect(m5.get('b')).toBe('Bonobo');
   });
 
-  it('is persistent to deletes', () => {
+  it('is persistent to removes', () => {
     var m1 = Map();
     var m2 = m1.set('a', 'Aardvark');
     var m3 = m2.set('b', 'Baboon');
     var m4 = m3.set('c', 'Canary');
-    var m5 = m4.delete('b');
+    var m5 = m4.remove('b');
     expect(m1.length).toBe(0);
     expect(m2.length).toBe(1);
     expect(m3.length).toBe(2);
@@ -97,11 +97,11 @@ describe('Map', () => {
     expect(m5.get('c')).toBe('Canary');
   });
 
-  it('deletes down to empty map', () => {
+  it('removes down to empty map', () => {
     var m1 = Map({a:'A', b:'B', c:'C'});
-    var m2 = m1.delete('a');
-    var m3 = m2.delete('b');
-    var m4 = m3.delete('c');
+    var m2 = m1.remove('a');
+    var m3 = m2.remove('b');
+    var m4 = m3.remove('c');
     expect(m1.length).toBe(3);
     expect(m2.length).toBe(2);
     expect(m3.length).toBe(1);

@@ -86,7 +86,7 @@ class OrderedMap extends Map {
     return newVector === this._vector ? this : OrderedMap._make(newMap, newVector);
   }
 
-  delete(k) {
+  remove(k) {
     if (k == null || this._map == null) {
       return this;
     }
@@ -94,8 +94,8 @@ class OrderedMap extends Map {
     if (index == null) {
       return this;
     }
-    var newMap = this._map.delete(k);
-    var newVector = this._vector.delete(index);
+    var newMap = this._map.remove(k);
+    var newVector = this._vector.remove(index);
 
     if (newMap.length === 0) {
       return this.clear();

@@ -72,11 +72,11 @@ class Set extends Sequence {
     return newMap === this._map ? this : Set._make(newMap);
   }
 
-  delete(value) {
+  remove(value) {
     if (value == null || this._map == null) {
       return this;
     }
-    var newMap = this._map.delete(value);
+    var newMap = this._map.remove(value);
     if (newMap.length === 0) {
       return this.clear();
     }
@@ -122,7 +122,7 @@ class Set extends Sequence {
     return this.withMutations(set => {
       originalSet.forEach(value => {
         if (!seqs.every(seq => seq.contains(value))) {
-          set.delete(value);
+          set.remove(value);
         }
       });
     });
@@ -137,7 +137,7 @@ class Set extends Sequence {
     return this.withMutations(set => {
       originalSet.forEach(value => {
         if (seqs.some(seq => seq.contains(value))) {
-          set.delete(value);
+          set.remove(value);
         }
       });
     });

@@ -68,17 +68,17 @@ class Map extends Sequence {
     return newRoot === this._root ? this : Map._make(newLength, newRoot);
   }
 
-  delete(k) {
+  remove(k) {
     if (k == null || this._root == null) {
       return this;
     }
     if (this.__ownerID) {
       var didRemoveLeaf = BoolRef();
-      this._root = this._root.delete(this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
+      this._root = this._root.remove(this.__ownerID, 0, hashValue(k), k, didRemoveLeaf);
       didRemoveLeaf.value && this.length--;
       return this;
     }
-    var newRoot = this._root.delete(this.__ownerID, 0, hashValue(k), k);
+    var newRoot = this._root.remove(this.__ownerID, 0, hashValue(k), k);
     return !newRoot ? Map.empty() : newRoot === this._root ? this : Map._make(this.length - 1, newRoot);
   }
 
@@ -244,7 +244,7 @@ class BitmapIndexedNode {
     return editable;
   }
 
-  delete(ownerID, shift, hash, key, didRemoveLeaf) {
+  remove(ownerID, shift, hash, key, didRemoveLeaf) {
     var editable;
     var idx = (hash >>> shift) & MASK;
     var bit = 1 << idx;
@@ -254,7 +254,7 @@ class BitmapIndexedNode {
     }
     if (keyOrNull == null) {
       var node = this.values[idx];
-      var newNode = node.delete(ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
+      var newNode = node.remove(ownerID, shift + SHIFT, hash, key, didRemoveLeaf);
       if (newNode === node) {
         return this;
       }
@@ -339,7 +339,7 @@ class HashCollisionNode {
     return editable;
   }
 
-  delete(ownerID, shift, hash, key, didRemoveLeaf) {
+  remove(ownerID, shift, hash, key, didRemoveLeaf) {
     var idx = this.keys.indexOf(key);
     if (idx === -1) {
       return this;

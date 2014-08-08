@@ -84,11 +84,11 @@ class Record extends Sequence {
     return this._make(newMap);
   }
 
-  delete(k) {
+  remove(k) {
     if (k == null || !this.has(k)) {
       return this;
     }
-    var newMap = this._map.delete(k);
+    var newMap = this._map.remove(k);
     if (this.__ownerID || newMap === this._map) {
       return this;
     }

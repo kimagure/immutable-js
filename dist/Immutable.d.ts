@@ -903,7 +903,7 @@ export interface Map<K, V> extends Sequence<K, V> {
   /**
    * Returns a new Map which excludes this `key`.
    */
-  delete(key: K): Map<K, V>;
+  remove(key: K): Map<K, V>;
 
   /**
    * Returns a new Map having updated the value at this `key` with the return
@@ -1093,11 +1093,11 @@ export declare function OrderedMap<V>(array: Array<V>): Map<number, V>;
  *     var ABRecord = Record({a:1, b:2})
  *     var myRecord = new ABRecord({b:3})
  *
- * Records always have a value for the keys they define. `delete()`ing a key
+ * Records always have a value for the keys they define. `remove()`ing a key
  * from a record simply resets it to the default value for that key.
  *
  *     myRecord.length // 2
- *     myRecordWithoutB = myRecord.delete('b')
+ *     myRecordWithoutB = myRecord.remove('b')
  *     myRecordWithoutB.get('b') // 2
  *     myRecordWithoutB.length // 2
  *
@@ -1188,7 +1188,7 @@ export interface Set<T> extends Sequence<T, T> {
   /**
    * Returns a new Set which excludes this value.
    */
-  delete(value: T): Set<T>;
+  remove(value: T): Set<T>;
 
   /**
    * Returns a new Set containing no values.
@@ -1298,7 +1298,7 @@ export interface Vector<T> extends IndexedSequence<T> {
    * Returns a new Vector which excludes this `index`. It will not affect the
    * length of the Vector, instead leaving a sparse hole.
    */
-  delete(index: number): Vector<T>;
+  remove(index: number): Vector<T>;
 
   /**
    * Returns a new Vector with an updated value at `index` with the return value
